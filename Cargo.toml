@@ -1,6 +1,6 @@
 [package]
 name = "raftlog_protobuf"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["The FrugalOS Developers"]
 description = "Encoders and decoders of the Protocol-Buffers messages for the constituents defined in `raftlog` crate"
 homepage = "https://github.com/frugalos/raftlog_protobuf"
