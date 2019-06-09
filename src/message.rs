@@ -27,13 +27,15 @@ pub struct RequestVoteCallDecoder {
         Fields<(
             MessageFieldDecoder<F1, HeaderDecoder>,
             MaybeDefault<MessageFieldDecoder<F2, LogPositionDecoder>>,
+            MaybeDefault<FieldDecoder<F3, BoolDecoder>>,
         )>,
     >,
 }
-impl_message_decode!(RequestVoteCallDecoder, RequestVoteCall, |t: (_, _)| Ok(
+impl_message_decode!(RequestVoteCallDecoder, RequestVoteCall, |t: (_, _, _)| Ok(
     RequestVoteCall {
         header: t.0,
-        log_tail: t.1
+        log_tail: t.1,
+        is_successor: t.2
     }
 ));
 
@@ -44,13 +46,14 @@ pub struct RequestVoteCallEncoder {
         Fields<(
             MessageFieldEncoder<F1, HeaderEncoder>,
             MaybeDefault<MessageFieldEncoder<F2, LogPositionEncoder>>,
+            MaybeDefault<FieldEncoder<F3, BoolEncoder>>,
         )>,
     >,
 }
 impl_sized_message_encode!(
     RequestVoteCallEncoder,
     RequestVoteCall,
-    |item: Self::Item| (item.header, item.log_tail)
+    |item: Self::Item| (item.header, item.log_tail, item.is_successor)
 );
 
 /// Decoder for `RequestVoteReply` message.
